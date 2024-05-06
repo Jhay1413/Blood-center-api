@@ -11,8 +11,8 @@ const generateUniqueCode = () => {
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-      user: 'detech.ubaldo@gmail.com', // Your Gmail address
-      pass: 'rngqzfcutwzngmla' // Your Gmail password
+      user: 'mailer1231234@gmail.com', // Your Gmail address
+      pass: 'dozqibvudboaxzsu' // Your Gmail password
     }
   });
 router.post('/resetPassword',async (req,res)=>{
