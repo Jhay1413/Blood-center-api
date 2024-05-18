@@ -24,7 +24,7 @@ const checkDate = require('./cron');
 app.use(express.json())
 app.use(cors())
 app.use(express.static('dist'));
-const PORT = 3001
+const port =  process.env.PORT || 3001
 
 //  cron.schedule('*/1 * * * *', () => {
 //      checkDate();
@@ -69,7 +69,7 @@ app.use('/api/accountRoutes',accountRoutes);
 app.use('/api/resetAuth',resetPasswordRoutes);
 
 connectDB().then(() => {
-    app.listen(PORT, () => {
+    app.listen(port, () => {
         console.log("listening for requests");
     })
 })
