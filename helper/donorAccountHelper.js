@@ -10,6 +10,7 @@ async function createDonorAccount (email,password,id){
             password : hashPassword,
             userId : id
         })
+        console.log("asdasdsad")
         if(newAccount){
             return newAccount
         }
@@ -17,6 +18,7 @@ async function createDonorAccount (email,password,id){
             return null
         }
     } catch (error) {
+        
         return error
     }
 

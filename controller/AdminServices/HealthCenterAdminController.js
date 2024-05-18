@@ -153,10 +153,11 @@ router.post('/addNewDonor',async(req,res)=>{
             bloodType,
             DOB
         })
-
+        console.log(newDonor);
         if(newDonor){
             const accountResponse = await createDonorAccount(email,password,newDonor._id)
             if(accountResponse){
+                console.log(accountResponse);
                 res.status(201).json(newDonor);
             }
             else{

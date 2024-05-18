@@ -21,7 +21,9 @@ const app = express();
 const cron = require('node-cron');
 const checkDate = require('./cron');
 const http = require('http');
-const socketIo = require('socket.io');
+const io = require('socket.io')(3002,{
+    cors : "*"
+});
 
 
 app.use(express.json())
@@ -36,8 +38,7 @@ const port =  process.env.PORT || 3001
 //      timezone: 'Asia/Manila', 
 //    });
 
-const server = http.createServer(app);
-const io = socketIo(server);
+
 const connectDB = async()=>{
     try {
         const conn = await mongoose.connect(process.env.MONGODB_URI);
@@ -47,6 +48,11 @@ const connectDB = async()=>{
         process.exit(1);
     }
 }
+
+io.on('connection', (socket) => {
+    console.log('New client connected');
+    
+})
 
 app.use((req, res, next) => {
     req.io = io;
@@ -80,12 +86,7 @@ app.use('/api/accountRoutes',accountRoutes);
 app.use('/api/resetAuth',resetPasswordRoutes);
 
 
-io.on('connection', (socket) => {
-    console.log('New client connected');
-    socket.on('disconnect', () => {
-        console.log('Client disconnected');
-    });
-})
+
 module.exports = io;
 connectDB().then(() => {
     app.listen(port, () => {
