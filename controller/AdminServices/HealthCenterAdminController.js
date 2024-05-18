@@ -5,7 +5,7 @@ const healthCenterAccount = require('../../Model/HealthCenterAccount');
 const DonorModel = require('../../Model/DonorModel');
 const { createDonorAccount } = require('../../helper/donorAccountHelper');
 const BloodLettingActivityModel = require('../../Model/ActivityModel');
-
+const io = require('../../../server/index'); 
 router.post('/addNewCenter',async(req,res)=>{
     try {
         const newCenter = await HealthCenter.create(req.body);
@@ -86,9 +86,12 @@ router.post('/addNewActivity',async(req,res)=>{
             const populatedDoc = await BloodLettingActivityModel.findById(newActivity._id).populate('bloodCenter');
             if(populatedDoc){
                 res.status(201).json(populatedDoc)
+
+
             }
          
         }
+        req.io.emit('activity,"Theres new blood letting activity near you!');
     } catch (error) {
         console.log(error);
     }
