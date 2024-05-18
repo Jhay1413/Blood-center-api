@@ -67,9 +67,7 @@ app.use('/api/accountRoutes',accountRoutes);
 
 //reset password
 app.use('/api/resetAuth',resetPasswordRoutes);
-app.get('*',(req,res)=>{
-    res.sendFile(path.join(__dirname,'dist/index.html'));
-});
+
 connectDB().then(() => {
     app.listen(PORT, () => {
         console.log("listening for requests");
