@@ -5,7 +5,6 @@ const healthCenterAccount = require('../../Model/HealthCenterAccount');
 const DonorModel = require('../../Model/DonorModel');
 const { createDonorAccount } = require('../../helper/donorAccountHelper');
 const BloodLettingActivityModel = require('../../Model/ActivityModel');
-const io = require('../../../server/index'); 
 router.post('/addNewCenter',async(req,res)=>{
     try {
         const newCenter = await HealthCenter.create(req.body);
