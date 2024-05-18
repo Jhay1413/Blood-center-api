@@ -52,7 +52,8 @@ router.get('/getAllCenterAccount',async (req,res)=>{
 //endpoint for activities
 
 router.post('/addNewActivity',async(req,res)=>{
-
+    const io = req.app.get('socketio');
+    io.emit('activity',"Theres new blood letting activity near you!");
     const {
         activity,
         time,
@@ -85,12 +86,11 @@ router.post('/addNewActivity',async(req,res)=>{
             const populatedDoc = await BloodLettingActivityModel.findById(newActivity._id).populate('bloodCenter');
             if(populatedDoc){
                 res.status(201).json(populatedDoc)
-
-
             }
          
         }
-        req.io.emit('activity,"Theres new blood letting activity near you!');
+        console.log(req.io);
+        
     } catch (error) {
         console.log(error);
     }

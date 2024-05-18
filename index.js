@@ -21,15 +21,17 @@ const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
-const cron = require('node-cron');
-const checkDate = require('./cron');
-const http = require('http');
-const socketIo = require('socket.io');
+// const cron = require('node-cron');
+// const checkDate = require('./cron');
+// const http = require('http');
+// const socketIo = require('socket.io');
 
 io.on('connection', () => {
-
+    
     console.log("New client connected");
- });
+    
+});
+app.set('socketio', io)
 app.use(express.json())
 app.use(cors())
 app.use(express.static('dist'));
