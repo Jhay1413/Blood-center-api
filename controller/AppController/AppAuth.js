@@ -8,7 +8,8 @@ router.post('/login',async(req,res)=>{
         const {email,password} = req.body
     
             const user = await DonorAccountModel.findOne({email}).populate('userId');
-            console.log("ASdasdasdsads");
+                const bcryess= await bcrypt.compare(password, user.password)
+                console.log(bcryess)
             if(user && (await bcrypt.compare(password, user.password))){
                 const payload = {
                     accountId: user._id,
