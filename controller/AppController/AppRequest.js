@@ -5,14 +5,15 @@ const PatientRequestModel = require('../../Model/PatientRequest');
 
 
 router.get('/getRequestById/:id',async (req,res)=>{
-    try {
-        const id = req.params.id
-        const allRequestData = await PatientRequestModel.findById(id).populate('patient').populate('physician').populate('approvedBy');
-        res.status(200).json(allRequestData)
-    } catch (error) {
-      console.log(error)
-    }
-  })
+  try {
+    const request = await PatientRequestModel.find({requestId:req.params.id}).populate('patient').populate('physician')
+    return request ? res.status(200).json(request) : res.status(400).send('No Request Found !')
+  } catch (error) {
+    console.log(error)
+    res.status(400).send('Error in fetching the request !');
+  }
+})
+
 //Activities Endpoint
   router.get('/getActivities',async(req,res)=>{
     try {
